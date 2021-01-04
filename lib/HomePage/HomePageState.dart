@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'Event.dart';
 import 'HomePage.dart';
+import 'HomePageStyle.dart';
 
 class HomePageState extends State<HomePage> {
 
@@ -92,24 +93,12 @@ class HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
           onPressed: () {
-            // MARK - Add dialog for info here
+            showMyDialog();
           },
         )
       ],
     );
   }
-
-//  Expanded feedView(dateSnapshot) {
-//    return Expanded(
-//        child: ListView.builder
-//          (
-//            itemCount: dateSnapshot.length,
-//            itemBuilder: (BuildContext ctxt, int index) {
-//              return getEvent(dateSnapshot[index]);
-//            }
-//        )
-//    );
-//  }
 
   Expanded feedView(dateSnapshot) {
     return Expanded(
@@ -125,46 +114,61 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  final titleStyle = TextStyle(
-    fontSize: 18,
-    fontFamily: 'Montserrat',
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-  );
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Info'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This app uses information hosted on https://www.essexstudent.com/ '
+                    'to display current events at the University of Essex.\n'),
+                Text('Created by Hamza Butt'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
-  final dateStyle = TextStyle(
-    fontSize: 15,
-    fontFamily: 'Montserrat',
-    color: Colors.black,
-  );
-
-  final descriptionStyle = TextStyle(
-    fontSize: 12,
-    fontFamily: 'Montserrat',
-    color: Colors.black,
-  );
+  final smallSeparator = SizedBox(height: 5);
+  final largeSeparator = SizedBox(height: 30);
 
   Column getEvent(event) {
     return Column(
       children: <Widget>[
         Align(
           alignment: Alignment.topCenter,
-          child: Text(event.title, style: titleStyle),
+          child: Text(event.title, style: titleStyle, textAlign: TextAlign.center,),
         ),
+        smallSeparator,
         Align(
           alignment: Alignment.center,
-          child: Text('📅 ${event.time}', style: dateStyle),
+          child: Text('📅 ${event.time}', style: dateStyle, textAlign: TextAlign.center),
         ),
+        smallSeparator,
         Align(
           alignment: Alignment.center,
-          child: Text(event.location, style: dateStyle),
+          child: Text(event.location, style: dateStyle, textAlign: TextAlign.center),
         ),
-        SizedBox(height: 30),
+        largeSeparator,
         Image.network(event.imgPath),
-        SizedBox(height: 30),
+        largeSeparator,
         Align(
           alignment: Alignment.centerLeft,
-          child: Text(event.description, style: descriptionStyle),
+          child: Text(event.description, style: textStyle, textAlign: TextAlign.left),
         ),
       ],
     );

@@ -35,9 +35,4 @@ class HomeController extends ControllerMVC {
     }
     return events;
   }
-
-  void refresh() {
-    print("hi");
-    setState(() { });
-  }
 }

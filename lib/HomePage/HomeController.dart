@@ -10,10 +10,13 @@ class HomeController extends ControllerMVC {
   }
   HomeController._();
 
+  final _url = 'https://www.essexstudent.com';
+  final _page = '/whatson';
+
   Future<List<Event>> launchWebScraping() async {
-    final webScraper = WebScraper('https://www.essexstudent.com/');
+    final webScraper = WebScraper(_url);
     List<Event> events = [];
-    if (await webScraper.loadWebPage('/whatson')) {
+    if (await webScraper.loadWebPage(_page)) {
       List<Map<String, dynamic>> eventTimes = webScraper.getElement('div.event_item > dl > dd.msl_event_time', []);
       List<Map<String, dynamic>> eventLocations = webScraper.getElement('div.event_item > dl > dd.msl_event_location', []);
       List<Map<String, dynamic>> eventDescriptions = webScraper.getElement('div.event_item > dl > dd.msl_event_description', []);
@@ -31,5 +34,10 @@ class HomeController extends ControllerMVC {
       }
     }
     return events;
+  }
+
+  void refresh() {
+    print("hi");
+    setState(() { });
   }
 }

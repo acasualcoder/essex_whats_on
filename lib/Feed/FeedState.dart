@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'Event.dart';
-import 'HomePage.dart';
-import 'HomePageStyle.dart';
+import 'Feed.dart';
+import 'FeedStyle.dart';
 
-class HomePageState extends State<HomePage> {
+class FeedState extends State<Feed> {
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,6 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: appBar(),
         body: Container(
-          color: Colors.white,
           child: Padding (
               padding: const EdgeInsets.all(36.0),
               child: Center(
@@ -80,20 +79,18 @@ class HomePageState extends State<HomePage> {
       leading: IconButton(
         icon: Icon(
           Icons.refresh,
-          color: Colors.white,
         ),
         onPressed: () {
-          setState(() { });
+          setState((){});
         },
       ),
       actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.info,
-            color: Colors.white,
           ),
           onPressed: () {
-            showMyDialog();
+            showInfoDialog();
           },
         )
       ],
@@ -108,25 +105,25 @@ class HomePageState extends State<HomePage> {
           return getEvent(dateSnapshot[index]);
         },
         separatorBuilder: (context, index) {
-          return Divider();
+          return Divider(
+            height: 50,
+            thickness: 1.5,
+          );
         },
       )
     );
   }
 
-  Future<void> showMyDialog() async {
+  Future<void> showInfoDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Info'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('This app uses information hosted on https://www.essexstudent.com/ '
-                    'to display current events at the University of Essex.\n'),
-                Text('Created by Hamza Butt'),
+                Text(widget.controller.infoContent),
               ],
             ),
           ),
@@ -144,33 +141,44 @@ class HomePageState extends State<HomePage> {
   }
 
   final smallSeparator = SizedBox(height: 5);
+  final mediumSeparator = SizedBox(height: 15);
   final largeSeparator = SizedBox(height: 30);
 
-  Column getEvent(event) {
-    return Column(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.topCenter,
-          child: Text(event.title, style: titleStyle, textAlign: TextAlign.center,),
-        ),
-        smallSeparator,
-        Align(
-          alignment: Alignment.center,
-          child: Text('📅 ${event.time}', style: dateStyle, textAlign: TextAlign.center),
-        ),
-        smallSeparator,
-        Align(
-          alignment: Alignment.center,
-          child: Text(event.location, style: dateStyle, textAlign: TextAlign.center),
-        ),
-        largeSeparator,
-        Image.network(event.imgPath),
-        largeSeparator,
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(event.description, style: textStyle, textAlign: TextAlign.left),
-        ),
-      ],
+  Container getEvent(event) {
+    return Container(
+        child: Column(
+          children: <Widget>[
+            smallSeparator,
+            Align(
+              alignment: Alignment.topCenter,
+              child: Text(event.title, style: titleStyle, textAlign: TextAlign.center,),
+            ),
+            mediumSeparator,
+            Align(
+              alignment: Alignment.center,
+              child: Text('📅 ${event.time}', style: dateStyle, textAlign: TextAlign.center),
+            ),
+            mediumSeparator,
+            Align(
+              alignment: Alignment.center,
+              child: Text(event.location, style: dateStyle, textAlign: TextAlign.center),
+            ),
+            mediumSeparator,
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 2,
+                ),
+              ),
+              child: Image.network(event.imgPath),
+            ),
+            largeSeparator,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(event.description, style: textStyle, textAlign: TextAlign.left),
+            ),
+          ],
+        )
     );
   }
 

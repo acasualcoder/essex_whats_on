@@ -3,15 +3,18 @@ import 'package:web_scraper/web_scraper.dart';
 
 import 'Event.dart';
 
-class HomeController extends ControllerMVC {
+class FeedController extends ControllerMVC {
 
-  factory  HomeController() {
-    return HomeController._();
+  factory  FeedController() {
+    return FeedController._();
   }
-  HomeController._();
+  FeedController._();
 
   final _url = 'https://www.essexstudent.com';
   final _page = '/whatson';
+
+  final infoContent = 'This app uses information hosted on https://www.essexstudent.com/ '
+      'to display current events at the University of Essex.\n\nCreated by Hamza Butt';
 
   Future<List<Event>> launchWebScraping() async {
     final webScraper = WebScraper(_url);

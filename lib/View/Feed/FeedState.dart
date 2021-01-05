@@ -1,6 +1,7 @@
+import 'package:essexwhatson/Exceptions/BaseException.dart';
 import 'package:flutter/material.dart';
 
-import 'Event.dart';
+import '../../Model/Event.dart';
 import 'Feed.dart';
 import 'FeedStyle.dart';
 
@@ -14,8 +15,9 @@ class FeedState extends State<Feed> {
         if( snapshot.connectionState == ConnectionState.waiting){
           return loadingUI();
         } else {
-          if (snapshot.hasError)
-            return errorUI();
+          if (snapshot.hasError) {
+            return errorUI(snapshot.error);
+          }
           else
             return mainUI(snapshot.data);
         }
@@ -40,14 +42,15 @@ class FeedState extends State<Feed> {
   }
 
 
-  Scaffold errorUI() {
+  Scaffold errorUI(error) {
+    var err = error as CoreException;
     return Scaffold(
         appBar: appBar(),
         body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("There was an error pulling your data"),
+                Text("Error: ${err.msg}"),
               ],
             )
         )

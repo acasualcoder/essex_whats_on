@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Feed/Feed.dart';
+import 'View/Feed/Feed.dart';
 
 class App extends StatelessWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'FeedController.dart';
+import '../../Controller/FeedController.dart';
 import 'FeedState.dart';
 
 class Feed extends StatefulWidget {

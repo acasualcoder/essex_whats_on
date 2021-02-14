@@ -18,4 +18,5 @@ class Event {
       "imgPath": imgPath,
     }.toString();
   }
+
 }

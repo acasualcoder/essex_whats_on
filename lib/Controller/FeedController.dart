@@ -13,7 +13,6 @@ class FeedController extends ControllerMVC {
   }
   FeedController._();
 
-
   final infoContent = 'This app uses information hosted on https://www.essexstudent.com/ '
       'to display current events at the University of Essex.\n\nCreated by Hamza Butt';
 

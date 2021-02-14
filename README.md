@@ -12,7 +12,6 @@ WhatsOn is a flutter application used to view current events happening at the Un
 - Saving of events locally.
 - View individual events, in detail.
 - Add events to user's calendar.
-- 
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
